@@ -1,0 +1,11 @@
+<div class="container" ng-controller="WelcomeCtrl">
+	<form>
+		<label>Title</label>
+		<input type="text" ng-model="issue.title">
+		<label>Description</label>
+		<input type="text" ng-model="issue.description">
+		<button ng-click="createIssue()">Create</button>
+	</form>
+	<div ng-show="errorMessage">{{errorMessage}}</div>
+	<div ng-show="successMessage">Ok!</div>
+</div>
