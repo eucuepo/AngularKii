@@ -22,6 +22,7 @@ angular.module('angularKiiApp', [
       })
       .when('/about', {
         templateUrl: 'views/about.html'
+      })
       .when('/list', {
         templateUrl: 'views/list.html',
         controller: 'ListCtrl'
