@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularKiiApp')
-  .controller('WelcomeCtrl', function ($scope,kiiService) {
+  .controller('AddCtrl', function ($scope,kiiService) {
 
     $scope.createIssue = function(){
 		var issue = {

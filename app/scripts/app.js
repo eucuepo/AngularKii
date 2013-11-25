@@ -16,16 +16,16 @@ angular.module('angularKiiApp', [
         templateUrl: 'views/signup.html',
         controller: 'AuthCtrl'
       })
-      .when('/welcome', {
-        templateUrl: 'views/welcome.html',
-        controller: 'WelcomeCtrl'
-      })
       .when('/about', {
         templateUrl: 'views/about.html'
       })
       .when('/issues', {
         templateUrl: 'views/issues.html',
         controller: 'IssuesCtrl'
+      })
+      .when('/add_issue', {
+        templateUrl: 'views/add_issue.html',
+        controller: 'AddCtrl'
       })
       .otherwise({
         redirectTo: '/'
