@@ -20,9 +20,6 @@ angular.module('angularKiiApp', [
         templateUrl: 'views/welcome.html',
         controller: 'WelcomeCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html'
-      })
       .when('/issues', {
         templateUrl: 'views/issues.html',
         controller: 'IssuesCtrl',
@@ -39,6 +36,7 @@ angular.module('angularKiiApp', [
     if (Global.user) {
         return true;
     } else {
+        $location.path("/");
         return false;
         /* 
         // try to re-login
