@@ -20,6 +20,10 @@ angular.module('angularKiiApp', [
         templateUrl: 'views/welcome.html',
         controller: 'WelcomeCtrl'
       })
+      .when('/list', {
+        templateUrl: 'views/list.html',
+        controller: 'ListCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
