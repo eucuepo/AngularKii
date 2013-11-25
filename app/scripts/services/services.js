@@ -40,4 +40,32 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 		return deferred.promise;
 	};
 
+	this.createObject = function (object) {
+		var output = {},
+	      deferred = $q.defer();
+
+	    // create object
+	    // Create an application scope bucket named "mydata"
+		var appBucket = Kii.bucketWithName("default");
+
+		// Create the object with key/value pairs
+		var obj = appBucket.createObject();
+
+		obj.set("title", object.title);
+		obj.set("description", object.title);
+
+		// Save the object
+		obj.save({
+		  success: function(theObject) {
+		    deferred.resolve(theObject);
+		  },
+		  failure: function(theObject, errorString) {
+		    deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
+
 });

@@ -16,6 +16,10 @@ angular.module('angularKiiApp', [
         templateUrl: 'views/signup.html',
         controller: 'AuthCtrl'
       })
+      .when('/welcome', {
+        templateUrl: 'views/welcome.html',
+        controller: 'WelcomeCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
