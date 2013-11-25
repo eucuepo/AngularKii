@@ -23,9 +23,9 @@ angular.module('angularKiiApp', [
       .when('/about', {
         templateUrl: 'views/about.html'
       })
-      .when('/list', {
-        templateUrl: 'views/list.html',
-        controller: 'ListCtrl'
+      .when('/issues', {
+        templateUrl: 'views/issues.html',
+        controller: 'IssuesCtrl'
       })
       .otherwise({
         redirectTo: '/'

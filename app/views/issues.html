@@ -1,0 +1,15 @@
+<div class="container" ng-controller="IssuesCtrl">
+
+	<div ng-show="errorMessage">{{errorMessage}}</div>
+	<div ng-show="successMessage">Ok!</div>
+	
+	<table class="table table-striped">
+	  <tr><th>Number</th><th>Title</th><th>Description</th></tr>
+	  <tr ng-repeat="issue in issues" | orderBy:issue.get("title"):reverse>
+	    <td>{{$index}}</td>
+	    <td>{{issue.get("title")}}</td>
+	    <td>{{issue.get("description")}}</td>
+	  </tr>
+	</table>
+
+</div>
