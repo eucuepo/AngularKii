@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularKiiApp')
-  .controller('AuthCtrl', function ($scope,kiiService, $window, Global) {
+  .controller('AuthCtrl', function ($scope,kiiService, $window, Global, $location) {
 
   	
   	// Legacy
@@ -48,6 +48,7 @@ angular.module('angularKiiApp')
 					console.log(user);
 					Global.user = user;
 					Global.authenticated = !! user;
+					$location.path('welcome');
 				}, function(error){
 					console.log(error);
 					$scope.errorMessage = error;
@@ -60,5 +61,6 @@ angular.module('angularKiiApp')
 		delete Global.user;
 		delete Global.authenticate;
 		delete $scope.global;
+		$location.path('/');
 	};
 });

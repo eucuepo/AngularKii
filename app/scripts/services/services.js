@@ -1,5 +1,5 @@
 angular.module('angularKiiApp').service('kiiService', function($q) {
-    Kii.initializeWithSite("ef54b60a", "35defaf317a42e0e314716f6ed7b71b5", KiiSite.US);
+    Kii.initializeWithSite("cc97cf6b", "a3d27fa02cf0e01e3baf4bda913c1705", KiiSite.JP);
 
     // insertUserWithEmailAddressAndUsername
     this.insertUserWithEmailAddressAndUsername = function (email, username, password) {
