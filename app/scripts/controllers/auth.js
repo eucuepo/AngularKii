@@ -3,7 +3,7 @@
 angular.module('angularKiiApp')
   .controller('AuthCtrl', function ($scope,kiiService, $window, Global, $location) {
 
-  	
+  	$scope.global = Global;
   	// Legacy
     $scope.insertUserLegacy = function(user){
 		// Create the KiiUser object
@@ -63,4 +63,8 @@ angular.module('angularKiiApp')
 		delete $scope.global;
 		$location.path('/');
 	};
+
+	$scope.selectTab = function (number){
+    	Global.selectedTab = number;
+    };
 });

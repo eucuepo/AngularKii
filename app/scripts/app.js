@@ -20,6 +20,9 @@ angular.module('angularKiiApp', [
         templateUrl: 'views/welcome.html',
         controller: 'WelcomeCtrl'
       })
+      .when('/about', {
+        templateUrl: 'views/about.html'
+      })
       .otherwise({
         redirectTo: '/'
       });
