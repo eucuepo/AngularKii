@@ -52,7 +52,7 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 		var obj = appBucket.createObject();
 
 		obj.set("title", object.title);
-		obj.set("description", object.title);
+		obj.set("description", object.description);
 
 		// Save the object
 		obj.save({
