@@ -4,11 +4,12 @@
 	<div ng-show="successMessage">Ok!</div>
 	
 	<table class="table table-striped">
-	  <tr><th>Number</th><th>Title</th><th>Description</th></tr>
+	  <tr><th>Number</th><th>Title</th><th>Description</th><th>Delete</th></tr>
 	  <tr ng-repeat="issue in issues" | orderBy:issue.get("title"):reverse>
 	    <td>{{$index}}</td>
 	    <td>{{issue.get("title")}}</td>
 	    <td>{{issue.get("description")}}</td>
+	    <td><span class="glyphicon glyphicon-trash" ng-click="deleteIssue(issue)"></span></a></td>
 	  </tr>
 	</table>
 

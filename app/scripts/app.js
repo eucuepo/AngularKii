@@ -16,10 +16,6 @@ angular.module('angularKiiApp', [
         templateUrl: 'views/signup.html',
         controller: 'AuthCtrl'
       })
-      .when('/welcome', {
-        templateUrl: 'views/welcome.html',
-        controller: 'WelcomeCtrl'
-      })
       .when('/about', {
         templateUrl: 'views/about.html'
       })
@@ -36,6 +32,10 @@ angular.module('angularKiiApp', [
         resolve: {
           factory: checkRouting
         }
+      })
+      .when('/delete/:uuid', {
+        templateUrl: 'views/delete.html',
+        controller: 'DeleteCtrl',
       })
       .otherwise({
         redirectTo: '/'
