@@ -5,18 +5,24 @@
 		<label>Points</label>
 		<input class="form-control" type="number" min="1" max="255" ng-model="issue.point">
 		<label>Description</label>
-		<input class="form-control" type="text" ng-model="issue.description">
+		<textarea class="form-control" type="text" ng-model="issue.description"></textarea>
 		<label>Assigned user</label>
 		<input class="form-control" type="text" ng-model="issue.assign">
+		<br>
+
 		<label>Due date</label>
-		<input class="form-control" type="text" ng-model="issue.dueDate">
-		<div class="control-group input-append">
-		  <input type="text" ng-model="datepicker.date" data-date-format="dd/mm/yyyy" bs-datepicker>
-		  <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
-		</div>
+		<div class="input-group">
+		  <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="issue.dueDate" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+		  <span class="input-group-btn">
+		    <button class="btn" ng-click="open()"><span class="glyphicon glyphicon-calendar"></span></button>
+		  </span>
+		</div><!-- /input-group -->
+		
+        
 		<br>
 		<button class="btn btn-success pull-right" ng-click="createIssue()">Create</button>
 	</form>
 	<div ng-show="errorMessage">{{errorMessage}}</div>
 	<div ng-show="successMessage">Ok!</div>
+	<br>
 </div>
