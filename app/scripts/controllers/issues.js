@@ -27,50 +27,7 @@ angular.module('angularKiiApp')
 		console.log($event+' '+$data+' '+array);
 	};
 
-      //$scope.fetchIssues();
-
-      $scope.issues = [
-      	{
-      		title: 'Issue 1',
-      		status: 0,
-      		point: 14,
-      		description: 'issue description',
-      		assign: 'URI',
-      		dueDate: 412341234123412
-      	},
-      	{
-      		title: 'Issue 2',
-      		status: 1,
-      		point: 17,
-      		description: 'issue description',
-      		assign: 'URI',
-      		dueDate: 412341234123412
-      	},
-      	{
-      		title: 'Issue 3',
-      		status: 0,
-      		point: 34,
-      		description: 'issue description',
-      		assign: 'URI',
-      		dueDate: 412341234123412
-      	},
-      	{
-      		title: 'Issue 4',
-      		status: 0,
-      		point: 22,
-      		description: 'issue description',
-      		assign: 'URI',
-      		dueDate: 412341234123412
-      	},
-      	{
-      		title: 'Issue 5',
-      		status: 2,
-      		point: 22,
-      		description: 'issue description',
-      		assign: 'URI',
-      		dueDate: 412341234123412
-      	}
-      ]
+      $scope.fetchIssues();
 
       $scope.deleteIssue = function(index, issue){
 	  kiiService.deleteObject(issue)
@@ -89,8 +46,15 @@ angular.module('angularKiiApp')
     $scope.createIssue = function(){
 		var issue = {
 			title : $scope.issue.title,
-			description : $scope.issue.description
+			description : $scope.issue.description,
+		        point: $scope.issue.point,
+		        status: 0,
+		        dueDate: $scope.issue.dueDate,
+		        assign: $scope.issue.assign
 		}
+
+	console.log("saving issue");
+	console.log(issue);
 
 		// Create the Issue object
 		kiiService.createObject(issue)
@@ -102,6 +66,7 @@ angular.module('angularKiiApp')
 					$scope.errorMessage = error;
 				}
 			); 
+
 	};
 
 	//get users for the typeahead
@@ -119,6 +84,11 @@ angular.module('angularKiiApp')
 
 	$scope.getUsers();
 
+	$scope.statusMatch = function( status ) {
+	  return function( item ) {
+	    return item.get('status') === status;
+	  };
+	};
 
 	// datepicker stuff
 	$scope.today = function() {

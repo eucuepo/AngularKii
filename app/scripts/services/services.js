@@ -55,6 +55,12 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 
 		obj.set("title", object.title);
 		obj.set("description", object.description);
+		obj.set("point", object.point);
+		obj.set("status", object.status);
+		obj.set("assign", object.assign);
+		obj.set("dueDate", Date.parse(object.dueDate));
+		obj.set("dueDateParsed", (new Date(object.dueDate)).toLocaleDateString());
+
 
 		// Save the object
 		obj.save({

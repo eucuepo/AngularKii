@@ -3,39 +3,39 @@
 		<!--TODO-->
 		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
 			<h2>TODO</h2>
-			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="red-card rounded-corners" ng-repeat="issue in issues | filter:{status:'0'}">
-				<h3>{{issue.title}}</h3>
+			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="red-card rounded-corners" ng-repeat="issue in issues | filter:statusMatch(0)">
+				<h3>{{issue.get("title")}}</h3>
 				<hr>
-				<p><span class="glyphicon glyphicon-book"/>{{issue.description}}</p>
-				<p><span class="badge badge-primary">{{issue.point}}</span> points</p>
-				<p><span class="glyphicon glyphicon-user"/>{{issue.assign}}</p>
-				<p><span class="glyphicon glyphicon-calendar"/>{{issue.dueDate}}</p>
+				<p><span class="glyphicon glyphicon-book"/>{{issue.get("description")}}</p>
+				<p><span class="badge badge-primary">{{issue.get("point")}}</span> points</p>
+				<p><span class="glyphicon glyphicon-user"/>{{issue.get("assign")}}</p>
+				<p><span class="glyphicon glyphicon-calendar"/>{{issue.get("dueDateParsed")}}</p>
 			</div>
 		</div>
 		<!--DOING-->
 		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
 			<h2>DOING</h2>
-			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="yellow-card rounded-corners" ng-repeat="issue in issues | filter:{status:'1'}">
-				<h3>{{issue.title}}</h3>
+			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="yellow-card rounded-corners" ng-repeat="issue in issues | filter:filter:statusMatch(1)">
+				<h3>{{issue.get("title")}}</h3>
 				<hr>
-				<p><span class="glyphicon glyphicon-book"/>{{issue.description}}</p>
-				<p><span class="badge badge-primary">{{issue.point}}</span> points</p>
-				<p><span class="glyphicon glyphicon-user"/>{{issue.assign}}</p>
-				<p><span class="glyphicon glyphicon-calendar"/>{{issue.dueDate}}</p>
+				<p><span class="glyphicon glyphicon-book"/>{{issue.get("description")}}</p>
+				<p><span class="badge badge-primary">{{issue.get("point")}}</span> points</p>
+				<p><span class="glyphicon glyphicon-user"/>{{issue.get("assign")}}</p>
+				<p><span class="glyphicon glyphicon-calendar"/>{{issue.get("dueDateParsed")}}</p>
 			</div>
 		</div>
 		<!--DONE-->
 		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
 			<h2>DONE</h2>
-			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="green-card rounded-corners" ng-repeat="issue in issues | filter:{status:'2'}">
-				<h3>{{issue.title}}</h3>
+			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="green-card rounded-corners" ng-repeat="issue in issues | filter:filter:statusMatch(2)">
+				<h3>{{issue.get("title")}}</h3>
 				<hr>
-				<p><span class="glyphicon glyphicon-book"/>{{issue.description}}</p>
-				<p><span class="badge badge-primary">{{issue.point}}</span> points</p>
-				<p><span class="glyphicon glyphicon-user"/>{{issue.assign}}</p>
-				<p><span class="glyphicon glyphicon-calendar"/>{{issue.dueDate}}</p>
+				<p><span class="glyphicon glyphicon-book"/>{{issue.get("description")}}</p>
+				<p><span class="badge badge-primary">{{issue.get("point")}}</span> points</p>
+				<p><span class="glyphicon glyphicon-user"/>{{issue.get("assign")}}</p>
+				<p><span class="glyphicon glyphicon-calendar"/>{{issue.get("dueDateParsed")}}</p>
 			</div>
 		</div>
-	<div class="clearfix"/>
+		<div class="clearfix"/>
 	</div>
 </div>
