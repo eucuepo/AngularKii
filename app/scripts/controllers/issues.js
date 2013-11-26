@@ -5,7 +5,7 @@ angular.module('angularKiiApp')
 
       console.log("issues ctrl");
 
-    $scope.fetchIssues = function(uuid){
+    $scope.fetchIssues = function(){
 		kiiService.fetchObjects()
 			.then(
 				function(resultSet){
@@ -21,9 +21,18 @@ angular.module('angularKiiApp')
 
       $scope.fetchIssues();
 
-      $scope.deleteIssue = function(issue){
-	  issue.delete();
-	  $scope.fetchIssues();
+      $scope.deleteIssue = function(index, issue){
+	  kiiService.deleteObject(issue)
+			.then(
+				function(successMessage){
+					$scope.successMessage = successMessage;
+				        console.log(successMessage);
+				}, function(error){
+					$scope.errorMessage = error;
+				}
+			);
+
+	  $scope.issues.splice(index, 1);
       };
 
     $scope.createIssue = function(){

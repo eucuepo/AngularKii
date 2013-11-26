@@ -70,6 +70,24 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 
 	};
 
+	this.deleteObject = function (object) {
+	      deferred = $q.defer();
+
+
+		object.delete({
+		  success: function(successMessage) {
+		    deferred.resolve(successMessage);
+		  },
+		  failure: function(errorString) {
+		    deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
+
+
 	this.createObjectInBucket = function (object,bucket) {
 		var output = {},
 	      deferred = $q.defer();
