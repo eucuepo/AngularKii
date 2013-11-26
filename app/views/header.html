@@ -31,14 +31,14 @@
                   </li>
                </ul>
                <ul class="nav navbar-nav navbar-right" ng-hide="global.authenticated">
-                  <li><a href="#/signup">Sign Up</a></li>
+                  <li><a href="#/signup">Sign Up </a></li>
                   <li class="dropdown">
-                     <a class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+                     <a class="dropdown-toggle" >Sign in <b class="caret"></b></a>
                      <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
                         <li>
                            <div class="row">
                               <div class="col-md-12">
-                                 <form name="form" novalidate class="css-form">
+                                 <form name="form" stop-event novalidate class="css-form">
                                     <div class="form-group">
                                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
                                        <input type="text" class="form-control" id="exampleInputEmail2" placeholder="User name" ng-model="user.username" required>
