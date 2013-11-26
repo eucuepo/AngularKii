@@ -199,4 +199,39 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 
 	};
 
+
+	this.fetchObject = function (uuid) {
+
+	    deferred = $q.defer();
+
+	    // Prepare the target bucket to be queried
+	    var bucket = Kii.bucketWithName("default");
+
+	    var clause = KiiClause.equals("uuid", uuid);
+
+	    // Build query
+	    var query = KiiQuery.queryWithClause(clause);
+
+	    // Define the callbacks
+	    var queryCallbacks = {
+		success: function(queryPerformed, resultSet, nextQuery) {
+		    deferred.resolve(resultSet);
+		},
+		failure: function(queryPerformed, anErrorString) {
+		    // do something with the error response
+		    deferred.reject(errorString);
+		}
+	    }
+
+	    // Execute the query
+	    bucket.executeQuery(query, queryCallbacks);
+	    // alternatively, you can also do:
+	    // bucket.executeQuery(null, queryCallbacks);
+
+
+
+	    return deferred.promise;
+
+	};
+
 });

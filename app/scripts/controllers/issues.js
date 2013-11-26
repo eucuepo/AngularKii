@@ -3,14 +3,13 @@
 angular.module('angularKiiApp')
   .controller('IssuesCtrl', function ($scope,kiiService) {
 
-      console.log("fetch list");
+      console.log("issues ctrl");
 
-		// Create the Issue object
+    $scope.fetchIssues = function(uuid){
 		kiiService.fetchObjects()
 			.then(
 				function(resultSet){
 					$scope.successMessage = 'Issues fetched :';
-				        console.log($scope.successMessage);
 				        console.log(resultSet);
 					delete $scope.errorMessage;
 				        $scope.issues = resultSet;
@@ -18,5 +17,14 @@ angular.module('angularKiiApp')
 					$scope.errorMessage = error;
 				}
 			); 
+    };
+
+      $scope.fetchIssues();
+
+      $scope.deleteIssue = function(issue){
+	  issue.delete();
+	  $scope.fetchIssues();
+      };
+
 
   });
