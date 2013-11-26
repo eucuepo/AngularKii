@@ -176,7 +176,7 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 			},
 			failure: function(queryPerformed, anErrorString) {
 			    // do something with the error response
-			    deferred.reject(errorString);
+			    deferred.reject(anErrorString);
 			}
 	    }
 

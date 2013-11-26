@@ -11,7 +11,9 @@ angular.module('angularKiiApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+      })
+      .when('/welcome', {
+        templateUrl: 'views/welcome.html',
       })
       .when('/signup', {
         templateUrl: 'views/signup.html',

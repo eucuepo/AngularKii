@@ -60,6 +60,21 @@ angular.module('angularKiiApp')
 
 	};
 
+	//get users for the typeahead
+	$scope.getUsers = function(){
+		// Create the Issue object
+		kiiService.getAllObjectsFromBucket("AllUsers")
+			.then(
+				function(users){
+					$scope.users = users; 
+				}, function(error){
+					$scope.errorMessage = error;
+				}
+			); 
+	};
+
+	$scope.getUsers();
+
 
 	// datepicker stuff
 	$scope.today = function() {
