@@ -3,6 +3,19 @@
 angular.module('angularKiiApp')
   .controller('IssuesCtrl', function ($scope,kiiService) {
 
+	$scope.getUsers = function(){
+		// Create the Issue object
+		kiiService.getAllObjectsFromBucket("AllUsers")
+			.then(
+				function(users){
+					$scope.users = users; 
+				}, function(error){
+					$scope.errorMessage = error;
+				}
+			); 
+	};
+
+
     $scope.fetchIssues = function(uuid){
 
 		kiiService.fetchObjects()
@@ -12,6 +25,7 @@ angular.module('angularKiiApp')
 				        console.log(resultSet);
 					delete $scope.errorMessage;
 				        $scope.issues = resultSet;
+				        $scope.getUsers();
 				}, function(error){
 					$scope.errorMessage = error;
 				}
@@ -61,19 +75,7 @@ angular.module('angularKiiApp')
 	};
 
 	//get users for the typeahead
-	$scope.getUsers = function(){
-		// Create the Issue object
-		kiiService.getAllObjectsFromBucket("AllUsers")
-			.then(
-				function(users){
-					$scope.users = users; 
-				}, function(error){
-					$scope.errorMessage = error;
-				}
-			); 
-	};
 
-	$scope.getUsers();
 
 
 	// datepicker stuff
