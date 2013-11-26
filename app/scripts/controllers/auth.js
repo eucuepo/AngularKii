@@ -38,7 +38,7 @@ angular.module('angularKiiApp')
 						email: user.emailAddress,
 						userid: insertedUser.objectURI()
 					}
-					kiiService.createObjectInBucket(toInsert,'AllUsers')
+					kiiService.createUserObject(toInsert)
 						.then(
 							function(user){
 								console.log(user);

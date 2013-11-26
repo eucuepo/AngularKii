@@ -1,0 +1,40 @@
+<div class="container" ng-controller="GroupCtrl">
+	<form name="form" novalidate class="css-form">
+		<label>Name</label>
+		<input class="form-control" type="text" ng-model="group.name">
+		<br>
+		<button class="btn btn-success pull-right" ng-click="createGroup(group.name)">Create</button>
+	</form>
+	<div class="alert" ng-show="errorMessage">{{errorMessage}}</div>
+	<br>
+	<!-- List of projects -->
+	<table class="table table-stripped">
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th class="text-right">Action</th>
+		</tr>
+		<tr ng-repeat="group in groups">
+			<td>{{$index}}</td>
+			<td>{{group.getName()}}</td>
+			<td class="text-right">
+				<button ng-show="$index == editProject" ng-click="updateProject(selectedProject)" class="btn btn-success"><span class="glyphicon glyphicon-check"/></button>
+				<button ng-hide="$index == editProject" ng-click="setEditProject(project,$index)" class="btn btn-primary"><span class="glyphicon glyphicon-edit"/></button>
+				<button ng-click="deleteGroup(group,$index)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"/></button>
+				  <button ng-click="toggleMember()" class="btn"><span class="glyphicon glyphicon-plus"/></button>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table ng-show="members" class="table table-hover">
+		<tr><th>Name</th><th>Email</th></tr>
+		<tr ng-repeat="user in members"></tr>
+	</table>
+	<div ng-show="memberEnabled">
+		<form name="memberform" novalidate class="css-form">
+			<label>Add member</label>
+			<input class="form-control" type="text" ng-model="member" typeahead="user.username for user in users" typeahead-editable="false">
+			<button class="btn btn-primary" ng-click="addMember(member)">Add member</button>
+		</form>
+	</div>
+</div>

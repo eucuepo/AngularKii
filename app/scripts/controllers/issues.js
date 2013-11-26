@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('angularKiiApp')
-  .controller('IssuesCtrl', function ($scope, kiiService, $location, $routeParams) {
+  .controller('IssuesCtrl', function ($scope, kiiService, $location, $routeParams, $timeout) {
 
 	$scope.getUsers = function(){
-		// Create the Issue object
-		kiiService.getAllObjectsFromBucket("AllUsers")
+		kiiService.getAllUsers()
 			.then(
 				function(users){
 					$scope.users = users; 
@@ -15,17 +14,12 @@ angular.module('angularKiiApp')
 			); 
 	};
 
-
-      console.log($routeParams.project);
-      $scope.project = $routeParams.project;
+    $scope.project = $routeParams.project;
 
     $scope.fetchIssues = function(project){
-
 		kiiService.fetchProjectObjects(project)
 			.then(
 				function(resultSet){
-					$scope.successMessage = 'Issues fetched :';
-				        console.log(resultSet);
 						delete $scope.errorMessage;
 				        $scope.issues = resultSet;
 				        $scope.getUsers();
@@ -43,26 +37,19 @@ angular.module('angularKiiApp')
     	} else if(bin == 'col3'){
     		$scope.issues[item].set('status',2);
     	}
+
+    	kiiService.updateObject($scope.issues[item])
+    		.then(
+				function(project){
+					console.log('ok');
+				}, function(error){
+					$scope.errorMessage = error;
+				}
+			);
 	  };
 
 	$scope.deleteIssue = function(index, issue){
-	kiiService.deleteObject(issue)
-		.then(
-			function(successMessage){
-				$scope.successMessage = successMessage;
-			        console.log(successMessage);
-			}, function(error){
-				$scope.errorMessage = error;
-			}
-		);
-
-	$scope.issues.splice(index, 1);
-	};
-
-      $scope.fetchIssues($routeParams.project);
-
-      $scope.deleteIssue = function(index, issue){
-	  kiiService.deleteObject(issue)
+		kiiService.deleteObject(issue)
 			.then(
 				function(successMessage){
 					$scope.successMessage = successMessage;
@@ -72,8 +59,10 @@ angular.module('angularKiiApp')
 				}
 			);
 
-	  $scope.issues.splice(index, 1);
-      };
+		$scope.issues.splice(index, 1);
+	};
+
+    $scope.fetchIssues($routeParams.project);
 
     $scope.createIssue = function(){
 		var issue = {
@@ -95,12 +84,11 @@ angular.module('angularKiiApp')
 				function(user){
 					$scope.successMessage = 'Issue created';
 					delete $scope.errorMessage;
+					$location.path("/issues/"+$scope.project);
 				}, function(error){
 					$scope.errorMessage = error;
 				}
 			); 
-
-	         $location.path("/issues/"+$scope.project);
 	};
 
 	// datepicker stuff

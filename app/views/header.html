@@ -17,6 +17,7 @@
                <ul class="nav navbar-nav">
                   <li ng-class="{active:global.selectedTab == 1}"><a href="/" ng-click="selectTab(1)">Home</a></li>
                   <li ng-class="{active:global.selectedTab == 2}" ng-show="global.authenticated"><a href="#/projects" ng-click="selectTab(2)">Boards</a></li>
+                  <li ng-class="{active:global.selectedTab == 3}" ng-show="global.authenticated"><a href="#/groups" ng-click="selectTab(3)">Groups</a></li>
                </ul>
                <ul class="nav navbar-nav navbar-right" ng-show="global.authenticated">
                   <li class="dropdown">

@@ -94,6 +94,35 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 
 	};
 
+	this.createUserObject = function (user) {
+		var output = {},
+	      deferred = $q.defer();
+
+	    // create object
+	    // Create an application scope bucket
+		var appBucket = Kii.bucketWithName("AllUsers");
+
+		// Create the object with key/value pairs
+		var obj = appBucket.createObject();
+
+		// iterate object properties
+		obj.set("username", user.username);
+		obj.set("email", user.email);
+		obj.set("userid", user.userid);
+
+		// Save the object
+		obj.save({
+		  success: function(theObject) {
+		    deferred.resolve(theObject);
+		  },
+		  failure: function(theObject, errorString) {
+		    deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
 
 	this.createObjectInBucket = function (object,bucket) {
 		var output = {},
@@ -115,6 +144,61 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 		    deferred.resolve(theObject);
 		  },
 		  failure: function(theObject, errorString) {
+		    deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
+
+	this.createGroup = function (groupName) {
+		var output = {},
+	      deferred = $q.defer();
+
+		var group = KiiGroup.groupWithName(groupName);
+		group.save({
+		  success: function(savedGroup) {
+		    // Get the reference URI.
+		    deferred.resolve(savedGroup);
+		  },
+		  failure: function(theGroup, errorString) {
+		     deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
+
+	this.deleteGroup = function (group) {
+		var output = {},
+	      deferred = $q.defer();
+
+		group.delete({
+		  success: function(deletedGroup) {
+		    // Get the reference URI.
+		    deferred.resolve(deletedGroup);
+		  },
+		  failure: function(theGroup, errorString) {
+		     deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
+
+	this.getGroups = function (user) {
+		var output = {},
+	      deferred = $q.defer();
+
+		// Get a list of groups in which the current user is a member
+		user.memberOfGroups({
+		  success: function(theUser, groupList) {
+		  	deferred.resolve(groupList);
+		  },
+		  failure: function(theUser, anErrorString) {
 		    deferred.reject(errorString);
 		  }
 		});
@@ -187,6 +271,42 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 	    // bucket.executeQuery(null, queryCallbacks);
 
 
+
+	    return deferred.promise;
+
+	};
+
+	this.getAllUsers = function () {
+
+	    deferred = $q.defer();
+
+	    // Prepare the target bucket to be queried
+	    var bucket = Kii.bucketWithName("AllUsers");
+
+	    // Build "all" query
+	    var all_query = KiiQuery.queryWithClause();
+
+	    // Define the callbacks
+	    var queryCallbacks = {
+			success: function(queryPerformed, resultSet, nextQuery) {
+				var users = [];
+				for(var i=0;i<resultSet.length;i++){
+					users.push({
+						username: resultSet[i].get('username'),
+						email: resultSet[i].get('email'),
+						userid: resultSet[i].get('userid')
+					});
+				}
+			    deferred.resolve(users);
+			},
+			failure: function(queryPerformed, anErrorString) {
+			    // do something with the error response
+			    deferred.reject(errorString);
+			}
+	    }
+
+	    // Execute the query
+	    bucket.executeQuery(all_query, queryCallbacks);
 
 	    return deferred.promise;
 

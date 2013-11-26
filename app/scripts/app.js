@@ -30,6 +30,13 @@ angular.module('angularKiiApp', [
           factory: checkRouting
         }
       })
+      .when('/groups', {
+        templateUrl: 'views/group.html',
+        controller: 'GroupCtrl',
+        resolve: {
+          factory: checkRouting
+        }
+      })
       .when('/issues/:project', {
         templateUrl: 'views/issues.html',
         controller: 'IssuesCtrl',
