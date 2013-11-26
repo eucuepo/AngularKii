@@ -37,8 +37,15 @@ angular.module('angularKiiApp')
     $scope.createIssue = function(){
 		var issue = {
 			title : $scope.issue.title,
-			description : $scope.issue.description
+			description : $scope.issue.description,
+		        point: $scope.issue.point,
+		        status: 0,
+		        dueDate: $scope.issue.dueDate,
+		        assign: $scope.issue.assign
 		}
+
+	console.log("saving issue");
+	console.log(issue);
 
 		// Create the Issue object
 		kiiService.createObject(issue)
@@ -50,6 +57,7 @@ angular.module('angularKiiApp')
 					$scope.errorMessage = error;
 				}
 			); 
+
 	};
 
 
