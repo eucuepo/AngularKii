@@ -36,14 +36,10 @@ angular.module('angularKiiApp', [
       })
       .when('/add_issue', {
         templateUrl: 'views/add_issue.html',
-        controller: 'AddCtrl',
+        controller: 'IssuesCtrl',
         resolve: {
           factory: checkRouting
         }
-      })
-      .when('/delete/:uuid', {
-        templateUrl: 'views/delete.html',
-        controller: 'DeleteCtrl',
       })
       .otherwise({
         redirectTo: '/'
