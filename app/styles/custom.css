@@ -18,3 +18,7 @@
     padding: 5px;
     margin-bottom: 10px;
 }
+
+.fill { 
+    min-height: 500px;
+}

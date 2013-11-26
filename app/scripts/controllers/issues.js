@@ -10,38 +10,40 @@ angular.module('angularKiiApp')
 				function(resultSet){
 					$scope.successMessage = 'Issues fetched :';
 				        console.log(resultSet);
-					delete $scope.errorMessage;
+						delete $scope.errorMessage;
 				        $scope.issues = resultSet;
+				        $scope.getUsers();
 				}, function(error){
 					$scope.errorMessage = error;
 				}
 			); 
     };
 
-    $scope.dropSuccessHandler = function($event,index,array){
-		//array.splice(index,1);
-		console.log($event+' '+index+' '+array);
+    $scope.handleDrop = function(item, bin) {
+    	if(bin == 'col1'){
+    		$scope.issues[item].set('status',0);
+    	} else if(bin == 'col2') {
+    		$scope.issues[item].set('status',1);
+    	} else if(bin == 'col3'){
+    		$scope.issues[item].set('status',2);
+    	}
+	  }
+
+	$scope.fetchIssues();
+
+	$scope.deleteIssue = function(index, issue){
+	kiiService.deleteObject(issue)
+		.then(
+			function(successMessage){
+				$scope.successMessage = successMessage;
+			        console.log(successMessage);
+			}, function(error){
+				$scope.errorMessage = error;
+			}
+		);
+
+	$scope.issues.splice(index, 1);
 	};
-	$scope.onDrop = function($event,$data,array){
-		//array.push($data);
-		console.log($event+' '+$data+' '+array);
-	};
-
-      $scope.fetchIssues();
-
-      $scope.deleteIssue = function(index, issue){
-	  kiiService.deleteObject(issue)
-			.then(
-				function(successMessage){
-					$scope.successMessage = successMessage;
-				        console.log(successMessage);
-				}, function(error){
-					$scope.errorMessage = error;
-				}
-			);
-
-	  $scope.issues.splice(index, 1);
-      };
 
     $scope.createIssue = function(){
 		var issue = {
@@ -81,8 +83,6 @@ angular.module('angularKiiApp')
 				}
 			); 
 	};
-
-	$scope.getUsers();
 
 	$scope.statusMatch = function( status ) {
 	  return function( item ) {

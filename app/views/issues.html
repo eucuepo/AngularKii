@@ -1,9 +1,8 @@
 <div ng-controller="IssuesCtrl">
-	<div>
 		<!--TODO-->
-		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
+		<div class="col-md-4 fill" id="col1" droppable drop="handleDrop">
 			<h2>TODO</h2>
-			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="red-card rounded-corners" ng-repeat="issue in issues | filter:statusMatch(0)">
+			<div id="{{$index}}" draggable item="issue" class="red-card rounded-corners" ng-repeat="issue in issues" ng-hide="issue.get('status')!=0">
 				<h3>{{issue.get("title")}}</h3>
 				<hr>
 				<p><span class="glyphicon glyphicon-book"/>{{issue.get("description")}}</p>
@@ -13,9 +12,9 @@
 			</div>
 		</div>
 		<!--DOING-->
-		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
+		<div class="col-md-4 fill" id="col2" droppable drop="handleDrop">
 			<h2>DOING</h2>
-			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="yellow-card rounded-corners" ng-repeat="issue in issues | filter:filter:statusMatch(1)">
+			<div id="{{$index}}" draggable item="issue" class="yellow-card rounded-corners" ng-repeat="issue in issues" ng-hide="issue.get('status')!=1">
 				<h3>{{issue.get("title")}}</h3>
 				<hr>
 				<p><span class="glyphicon glyphicon-book"/>{{issue.get("description")}}</p>
@@ -25,9 +24,9 @@
 			</div>
 		</div>
 		<!--DONE-->
-		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
+		<div class="col-md-4 fill" id="col3" droppable drop="handleDrop">
 			<h2>DONE</h2>
-			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="green-card rounded-corners" ng-repeat="issue in issues | filter:filter:statusMatch(2)">
+			<div id="{{$index}}" draggable item="issue" class="green-card rounded-corners" ng-repeat="issue in issues" ng-hide="issue.get('status')!=2">
 				<h3>{{issue.get("title")}}</h3>
 				<hr>
 				<p><span class="glyphicon glyphicon-book"/>{{issue.get("description")}}</p>
@@ -37,5 +36,4 @@
 			</div>
 		</div>
 		<div class="clearfix"/>
-	</div>
 </div>
