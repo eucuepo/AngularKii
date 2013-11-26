@@ -7,7 +7,7 @@
 		<label>Description</label>
 		<textarea class="form-control" type="text" ng-model="issue.description"></textarea>
 		<label>Assigned user</label>
-		<input class="form-control" type="text" ng-model="issue.assign">
+		<input class="form-control" type="text" ng-model="issue.assign" typeahead="user.get('object').user.get('object').username for user in users" typeahead-editable="false">
 		<br>
 
 		<label>Due date</label>

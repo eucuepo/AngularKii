@@ -31,8 +31,24 @@ angular.module('angularKiiApp')
 		kiiService.insertUserWithEmailAddressAndUsername(
 			user.emailAddress,user.username, user.password)
 			.then(
-				function(user){
-					$scope.infoMessage = 'User registered, please check '+user.getEmailAddress()+' to complete activation.';
+				function(insertedUser){
+					// insert the user on AllUsers bucket
+					var toInsert = {
+						username: user.username,
+						email: user.emailAddress,
+						userid: insertedUser.objectURI()
+					}
+					kiiService.createObjectInBucket(toInsert,'AllUsers')
+						.then(
+							function(user){
+								console.log(user);
+								$scope.infoMessage = 'User registered, please check '+insertedUser.getEmailAddress()+' to complete activation.';
+							}, function(error){
+								console.log(error);
+								$scope.errorMessage = error;
+								//TODO delete user
+							}
+						);
 				}, function(error){
 					$scope.errorMessage = error;
 				}

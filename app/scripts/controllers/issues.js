@@ -3,8 +3,6 @@
 angular.module('angularKiiApp')
   .controller('IssuesCtrl', function ($scope,kiiService) {
 
-      console.log("issues ctrl");
-
     $scope.fetchIssues = function(uuid){
 		kiiService.fetchObjects()
 			.then(
