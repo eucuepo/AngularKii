@@ -43,8 +43,8 @@ angular.module('angularKiiApp')
 			);
     };
 
-    $scope.getMembers = function(group,index){
-	    group.getMemberList({
+    $scope.getMembers = function(index){
+	    $scope.groups[index].getMemberList({
 		  success: function(theGroup, theMembers) {
 		    $scope.$apply(function (){
 		  		$scope.members = theMembers;
@@ -82,7 +82,7 @@ angular.module('angularKiiApp')
 
     $scope.deleteMember = function(member){
 		$scope.groups[i].removeUser(member);
-		group.save({
+		$scope.groups[i].save({
 		  success: function(theGroup) {
 		    console.log("Group saved!");
 		    console.log(theGroup);
