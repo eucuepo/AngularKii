@@ -56,6 +56,7 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 		obj.set("title", object.title);
 		obj.set("description", object.description);
 		obj.set("point", object.point);
+		obj.set("project", object.project);
 		obj.set("status", object.status);
 		obj.set("assign", object.assign);
 		obj.set("dueDate", Date.parse(object.dueDate));
@@ -214,6 +215,39 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 
 	    // Execute the query
 	    bucket.executeQuery(all_query, queryCallbacks);
+	    // alternatively, you can also do:
+	    // bucket.executeQuery(null, queryCallbacks);
+
+
+
+	    return deferred.promise;
+
+	};
+
+	this.fetchProjectObjects = function (project) {
+
+	    deferred = $q.defer();
+
+	    // Prepare the target bucket to be queried
+	    var bucket = Kii.bucketWithName("default");
+
+	    var clause = KiiClause.equals("project", project);
+
+	    var query = KiiQuery.queryWithClause(clause);
+
+	    // Define the callbacks
+	    var queryCallbacks = {
+			success: function(queryPerformed, resultSet, nextQuery) {
+			    deferred.resolve(resultSet);
+			},
+			failure: function(queryPerformed, anErrorString) {
+			    // do something with the error response
+			    deferred.reject(errorString);
+			}
+	    }
+
+	    // Execute the query
+	    bucket.executeQuery(query, queryCallbacks);
 	    // alternatively, you can also do:
 	    // bucket.executeQuery(null, queryCallbacks);
 

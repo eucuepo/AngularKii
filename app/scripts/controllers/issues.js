@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularKiiApp')
-  .controller('IssuesCtrl', function ($scope,kiiService) {
+  .controller('IssuesCtrl', function ($scope, kiiService, $location, $routeParams) {
 
 	$scope.getUsers = function(){
 		// Create the Issue object
@@ -16,9 +16,12 @@ angular.module('angularKiiApp')
 	};
 
 
-    $scope.fetchIssues = function(uuid){
+      console.log($routeParams.project);
+      $scope.project = $routeParams.project;
 
-		kiiService.fetchObjects()
+    $scope.fetchIssues = function(project){
+
+		kiiService.fetchProjectObjects(project)
 			.then(
 				function(resultSet){
 					$scope.successMessage = 'Issues fetched :';
@@ -32,7 +35,7 @@ angular.module('angularKiiApp')
 			); 
     };
 
-      $scope.fetchIssues();
+      $scope.fetchIssues($routeParams.project);
 
       $scope.deleteIssue = function(index, issue){
 	  kiiService.deleteObject(issue)
@@ -53,6 +56,7 @@ angular.module('angularKiiApp')
 			title : $scope.issue.title,
 			description : $scope.issue.description,
 		        point: $scope.issue.point,
+		        project: $scope.project,
 		        status: 0,
 		        dueDate: $scope.issue.dueDate,
 		        assign: $scope.issue.assign
@@ -72,6 +76,7 @@ angular.module('angularKiiApp')
 				}
 			); 
 
+	         $location.path("/issues/"+$scope.project);
 	};
 
 	//get users for the typeahead
