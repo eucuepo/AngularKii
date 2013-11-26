@@ -1,11 +1,27 @@
 'use strict';
 
 angular.module('angularKiiApp')
-  .controller('IssuesCtrl', function ($scope,kiiService) {
+  .controller('IssuesCtrl', function ($scope, kiiService, $location, $routeParams) {
 
-    $scope.fetchIssues = function(uuid){
+	$scope.getUsers = function(){
+		// Create the Issue object
+		kiiService.getAllObjectsFromBucket("AllUsers")
+			.then(
+				function(users){
+					$scope.users = users; 
+				}, function(error){
+					$scope.errorMessage = error;
+				}
+			); 
+	};
 
-		kiiService.fetchObjects()
+
+      console.log($routeParams.project);
+      $scope.project = $routeParams.project;
+
+    $scope.fetchIssues = function(project){
+
+		kiiService.fetchProjectObjects(project)
 			.then(
 				function(resultSet){
 					$scope.successMessage = 'Issues fetched :';
@@ -27,9 +43,7 @@ angular.module('angularKiiApp')
     	} else if(bin == 'col3'){
     		$scope.issues[item].set('status',2);
     	}
-	  }
-
-	$scope.fetchIssues();
+	  };
 
 	$scope.deleteIssue = function(index, issue){
 	kiiService.deleteObject(issue)
@@ -45,11 +59,28 @@ angular.module('angularKiiApp')
 	$scope.issues.splice(index, 1);
 	};
 
+      $scope.fetchIssues($routeParams.project);
+
+      $scope.deleteIssue = function(index, issue){
+	  kiiService.deleteObject(issue)
+			.then(
+				function(successMessage){
+					$scope.successMessage = successMessage;
+				        console.log(successMessage);
+				}, function(error){
+					$scope.errorMessage = error;
+				}
+			);
+
+	  $scope.issues.splice(index, 1);
+      };
+
     $scope.createIssue = function(){
 		var issue = {
 			title : $scope.issue.title,
 			description : $scope.issue.description,
 		        point: $scope.issue.point,
+		        project: $scope.project,
 		        status: 0,
 		        dueDate: $scope.issue.dueDate,
 		        assign: $scope.issue.assign
@@ -69,25 +100,7 @@ angular.module('angularKiiApp')
 				}
 			); 
 
-	};
-
-	//get users for the typeahead
-	$scope.getUsers = function(){
-		// Create the Issue object
-		kiiService.getAllObjectsFromBucket("AllUsers")
-			.then(
-				function(users){
-					$scope.users = users; 
-				}, function(error){
-					$scope.errorMessage = error;
-				}
-			); 
-	};
-
-	$scope.statusMatch = function( status ) {
-	  return function( item ) {
-	    return item.get('status') === status;
-	  };
+	         $location.path("/issues/"+$scope.project);
 	};
 
 	// datepicker stuff

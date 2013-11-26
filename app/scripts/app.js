@@ -30,14 +30,14 @@ angular.module('angularKiiApp', [
           factory: checkRouting
         }
       })
-      .when('/issues', {
+      .when('/issues/:project', {
         templateUrl: 'views/issues.html',
         controller: 'IssuesCtrl',
         resolve: {
           factory: checkRouting
         }
       })
-      .when('/add_issue', {
+      .when('/add_issue/:project', {
         templateUrl: 'views/add_issue.html',
         controller: 'IssuesCtrl',
         resolve: {

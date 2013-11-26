@@ -25,13 +25,13 @@
 			<td ng-show="$index == editProject">
 				<textarea class="form-control" type="text" ng-model="selectedProject.get('object').description"></textarea>
 			</td>
-			<td ng-hide="$index == editProject">{{project.get('object').title}}</td>
+			<td ng-hide="$index == editProject"><a href="\#/issues/{{project.get('object').title}}">{{project.get('object').title}}</a></td>
 			<td ng-hide="$index == editProject">{{project.get('object').description}}</td>
 			<td class="text-right">
 				<button ng-show="$index == editProject" ng-click="updateProject(selectedProject)" class="btn btn-success"><span class="glyphicon glyphicon-check"/></button>
 				<button ng-hide="$index == editProject" ng-click="setEditProject(project,$index)" class="btn btn-primary"><span class="glyphicon glyphicon-edit"/></button>
 				<button ng-click="deleteProject(project,$index)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"/></button>
-				<button ng-click="addIssue(project,$index)" class="btn"><span class="glyphicon glyphicon-plus"/></button>
+				  <button ng-click="addIssue(project,$index)" class="btn"><span class="glyphicon glyphicon-plus"/></button>
 			</td>
 		</tr>
 	</table>

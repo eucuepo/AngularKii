@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularKiiApp')
-  .controller('ProjectCtrl', function ($scope,kiiService) {
+  .controller('ProjectCtrl',  function ($scope,kiiService, $location) {
 
     $scope.createProject = function(project){
     	var toInsert = angular.copy(project);
@@ -59,7 +59,12 @@ angular.module('angularKiiApp')
     	$scope.editProject = index;
     }
 
+    $scope.addIssue = function(project, index){
+	console.log(project);
+	$location.path('/add_issue/'+project.get('object').title);
+    };
+
     $scope.listProjects();
 
 
-  });
+  }); 
