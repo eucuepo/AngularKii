@@ -18,7 +18,59 @@ angular.module('angularKiiApp')
 			); 
     };
 
-      $scope.fetchIssues();
+    $scope.dropSuccessHandler = function($event,index,array){
+		//array.splice(index,1);
+		console.log($event+' '+index+' '+array);
+	};
+	$scope.onDrop = function($event,$data,array){
+		//array.push($data);
+		console.log($event+' '+$data+' '+array);
+	};
+
+      //$scope.fetchIssues();
+
+      $scope.issues = [
+      	{
+      		title: 'Issue 1',
+      		status: 0,
+      		point: 14,
+      		description: 'issue description',
+      		assign: 'URI',
+      		dueDate: 412341234123412
+      	},
+      	{
+      		title: 'Issue 2',
+      		status: 1,
+      		point: 17,
+      		description: 'issue description',
+      		assign: 'URI',
+      		dueDate: 412341234123412
+      	},
+      	{
+      		title: 'Issue 3',
+      		status: 0,
+      		point: 34,
+      		description: 'issue description',
+      		assign: 'URI',
+      		dueDate: 412341234123412
+      	},
+      	{
+      		title: 'Issue 4',
+      		status: 0,
+      		point: 22,
+      		description: 'issue description',
+      		assign: 'URI',
+      		dueDate: 412341234123412
+      	},
+      	{
+      		title: 'Issue 5',
+      		status: 2,
+      		point: 22,
+      		description: 'issue description',
+      		assign: 'URI',
+      		dueDate: 412341234123412
+      	}
+      ]
 
       $scope.deleteIssue = function(index, issue){
 	  kiiService.deleteObject(issue)

@@ -1,13 +1,41 @@
 <div ng-controller="IssuesCtrl">
-	
-	<table class="table table-striped">
-	  <tr><th>Number</th><th>Title</th><th>Description</th><th>Delete</th></tr>
-	  <tr ng-repeat="issue in issues" | orderBy:issue.get("title"):reverse>
-	    <td>{{$index}}</td>
-	    <td>{{issue.get("title")}}</td>
-	    <td>{{issue.get("description")}}</td>
-	    <td><span class="glyphicon glyphicon-trash" ng-click="deleteIssue($index, issue)"></span></a></td>
-	  </tr>
-	</table>
-
+	<div>
+		<!--TODO-->
+		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
+			<h2>TODO</h2>
+			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="red-card rounded-corners" ng-repeat="issue in issues | filter:{status:'0'}">
+				<h3>{{issue.title}}</h3>
+				<hr>
+				<p><span class="glyphicon glyphicon-book"/>{{issue.description}}</p>
+				<p><span class="badge badge-primary">{{issue.point}}</span> points</p>
+				<p><span class="glyphicon glyphicon-user"/>{{issue.assign}}</p>
+				<p><span class="glyphicon glyphicon-calendar"/>{{issue.dueDate}}</p>
+			</div>
+		</div>
+		<!--DOING-->
+		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
+			<h2>DOING</h2>
+			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="yellow-card rounded-corners" ng-repeat="issue in issues | filter:{status:'1'}">
+				<h3>{{issue.title}}</h3>
+				<hr>
+				<p><span class="glyphicon glyphicon-book"/>{{issue.description}}</p>
+				<p><span class="badge badge-primary">{{issue.point}}</span> points</p>
+				<p><span class="glyphicon glyphicon-user"/>{{issue.assign}}</p>
+				<p><span class="glyphicon glyphicon-calendar"/>{{issue.dueDate}}</p>
+			</div>
+		</div>
+		<!--DONE-->
+		<div class="col-md-4" ui-on-Drop="onDrop($event,$data,issue)">
+			<h2>DONE</h2>
+			<div ui-draggable="true" drag="issue" on-drop-success="dropSuccessHandler($event,$index,issue)" class="green-card rounded-corners" ng-repeat="issue in issues | filter:{status:'2'}">
+				<h3>{{issue.title}}</h3>
+				<hr>
+				<p><span class="glyphicon glyphicon-book"/>{{issue.description}}</p>
+				<p><span class="badge badge-primary">{{issue.point}}</span> points</p>
+				<p><span class="glyphicon glyphicon-user"/>{{issue.assign}}</p>
+				<p><span class="glyphicon glyphicon-calendar"/>{{issue.dueDate}}</p>
+			</div>
+		</div>
+	<div class="clearfix"/>
+	</div>
 </div>

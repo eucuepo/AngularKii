@@ -5,7 +5,8 @@ angular.module('angularKiiApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngDragDrop'
 ])
   .config(function ($routeProvider) {
     $routeProvider

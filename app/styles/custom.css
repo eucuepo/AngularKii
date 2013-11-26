@@ -1,3 +1,20 @@
-.red {
-	color: #C42525;
+.red-card {
+	background-color: #EDAFBF;
+}
+
+.yellow-card {
+	background-color: #EAEDAF;
+}
+
+.green-card {
+	background-color: #AFEDB1;
+}
+
+.rounded-corners {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
 }
