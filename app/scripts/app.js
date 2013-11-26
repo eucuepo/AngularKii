@@ -24,6 +24,13 @@ angular.module('angularKiiApp', [
       .when('/about', {
         templateUrl: 'views/about.html'
       })
+      .when('/projects', {
+        templateUrl: 'views/project.html',
+        controller: 'ProjectCtrl',
+        resolve: {
+          factory: checkRouting
+        }
+      })
       .when('/issues', {
         templateUrl: 'views/issues.html',
         controller: 'IssuesCtrl',

@@ -51,6 +51,8 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 		// Create the object with key/value pairs
 		var obj = appBucket.createObject();
 
+		// iterate object properties
+
 		obj.set("title", object.title);
 		obj.set("description", object.description);
 
@@ -68,6 +70,103 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 
 	};
 
+	this.createObjectInBucket = function (object,bucket) {
+		var output = {},
+	      deferred = $q.defer();
+
+	    // create object
+	    // Create an application scope bucket
+		var appBucket = Kii.bucketWithName(bucket);
+
+		// Create the object with key/value pairs
+		var obj = appBucket.createObject();
+
+		// iterate object properties
+		obj.set("object", object);
+
+		// Save the object
+		obj.save({
+		  success: function(theObject) {
+		    deferred.resolve(theObject);
+		  },
+		  failure: function(theObject, errorString) {
+		    deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
+
+	this.deleteObjectFromBucket = function (object) {
+		var output = {},
+	      deferred = $q.defer();
+
+		var object = KiiObject.objectWithURI(object.objectURI());
+
+		// Delete the Object
+		object.delete({
+		  success: function(theDeletedObject) {
+		    deferred.resolve(theDeletedObject);
+		  },
+		  failure: function(theDeletedObject, errorString) {
+		    deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
+
+	this.updateObject = function (object) {
+		var output = {},
+	      deferred = $q.defer();
+
+		object.saveAllFields({
+		  success: function(theObject) {
+		    deferred.resolve(theObject);
+		  },
+		  failure: function(theObject, errorString) {
+		    deferred.reject(errorString);
+		  }
+		});
+
+		return deferred.promise;
+
+	};
+
+	this.getAllObjectsFromBucket = function (bucket) {
+
+	    deferred = $q.defer();
+
+	    // Prepare the target bucket to be queried
+	    var bucket = Kii.bucketWithName(bucket);
+
+	    // Build "all" query
+	    var all_query = KiiQuery.queryWithClause();
+
+	    // Define the callbacks
+	    var queryCallbacks = {
+			success: function(queryPerformed, resultSet, nextQuery) {
+			    deferred.resolve(resultSet);
+			},
+			failure: function(queryPerformed, anErrorString) {
+			    // do something with the error response
+			    deferred.reject(errorString);
+			}
+	    }
+
+	    // Execute the query
+	    bucket.executeQuery(all_query, queryCallbacks);
+	    // alternatively, you can also do:
+	    // bucket.executeQuery(null, queryCallbacks);
+
+
+
+	    return deferred.promise;
+
+	};
+
 	this.fetchObjects = function () {
 
 	    deferred = $q.defer();
@@ -80,13 +179,13 @@ angular.module('angularKiiApp').service('kiiService', function($q) {
 
 	    // Define the callbacks
 	    var queryCallbacks = {
-		success: function(queryPerformed, resultSet, nextQuery) {
-		    deferred.resolve(resultSet);
-		},
-		failure: function(queryPerformed, anErrorString) {
-		    // do something with the error response
-		    deferred.reject(errorString);
-		}
+			success: function(queryPerformed, resultSet, nextQuery) {
+			    deferred.resolve(resultSet);
+			},
+			failure: function(queryPerformed, anErrorString) {
+			    // do something with the error response
+			    deferred.reject(errorString);
+			}
 	    }
 
 	    // Execute the query
